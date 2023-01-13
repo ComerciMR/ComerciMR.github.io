@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
+    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
+    <script src="./assets/scripts/print.js"></script>
+    <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
+    <title>Comprobante de pago</title>
+    <style>
+        * {
+            font-family: arial, sans-serif;
+        }
+
+        body {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        #items .row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        #items .row:nth-child(odd) {
+            background: #fff4f4;
+        }
+
+        #items .total,
+        #items .qty,
+        #items .name,
+        #items .price {
+            padding: 5px;
+        }
+
+        #items .qty {
+            width: 50px;
+        }
+
+        #items .name {
+            flex-grow: 1;
+        }
+
+        #items .price {
+            width: 100px;
+        }
+
+        #items .total {
+            font-weight: 700;
+            background: #fff4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <header id="head">
+        <div class="row pad-top font-big">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <a href="" target="_self"><img id="logo" width="150%" height="100%" src="" alt="Logo" /> </a>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9">
+                <strong>
+                    <h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="brandT"></span></h3>
+                </strong>
+                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teléfono: </strong> <a id="brandNA" href="" target="_blank"><span id="brandN"></span></a>
+                <br>
+                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WhatsApp: </strong> <a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
+                <br>
+                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E-mail: </strong> <a id="brandMA" href="" target="_blank"><span id="brandM"></span></a>
+                <br>
+                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dirección: </strong>
+                Sabaneta, Antioquia, Colombia.
+            </div>
+        </div>
+    </header>
+    <hr>
+    <h2>Comprobante de pago #00<span id="number"></span></h2>
+    <h4><b>Fecha: </b><span id="date"></span></h4>
+    <h4><b>Cliente: </b><span id="client"></span></h4>
+    <h4><b>C.C.: </b><span id="clientID"></span> <b> Teléfono: </b><span id="clientNUM"></span></h4>
+    <div id="items">
+        <h5><b>Concepto: </b></h5>
+        <h4><span id="concept"></span></h4>
+        <h5><b>Suma: </b></h5>
+        <h4>$<span id="price"></span> (<span id="priceL"></span>)</h4>
+    </div>
+</body>
+
+</html>

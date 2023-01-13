@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
+    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
+    <script src="./assets/scripts/main.js"></script>
+    <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles/main.css">
+    <title>Generar Comprobante de Pago</title>
+</head>
+
+<body>
+    <form id="bottomB" onsubmit="generar()">
+        <div class="campos">
+            <label for="date">Fecha:</label>
+            <input type="text" id="date" readonly>
+            <label for="brand">Empresa:</label>
+            <input list="brandopt" id="brand" required>
+            <datalist id="brandopt">
+                <option value="0">Muñoz & Ruiz Abogados</option>
+                <option value="1">Comercializadora MR</option>
+            </datalist>
+            <label for="number">*Número:</label>
+            <input type="number" id="number" required>
+            <label for="client">*Cliente:</label>
+            <input type="text" id="client" required>
+            <div class="cliente">
+                <div class="doc">
+                    <label for="clientID">*Documento:</label>
+                    <input type="number" id="clientID" required>
+                </div>
+                <div class="num">
+                    <label for="clientNUM">*Celular:</label>
+                    <input type="number" id="clientNUM" required>
+                </div>
+            </div>
+            <label for="concept">*Concepto:</label>
+            <textarea id="concept" cols="30" rows="1" required></textarea>
+            <label for="price">*Valor:</label>
+            <input type="number" id="price" min="10000" step="1" value="10000" required>
+            <input type="text" id="priceL" readonly>
+        </div>
+        <button class="btn btn-primary" id="addButton" type="submit">Generar</button>
+    </form>
+    <script src="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

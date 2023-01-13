@@ -1,0 +1,69 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+
+}
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.campos {
+    width: 100%;
+}
+.campos input, .campos textarea {
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 2rem 1.5rem 2rem;
+    padding: 0.5rem;
+    display: block;
+    border: 1px solid;
+    width: 80%;
+}
+.campos label, fieldset {
+    margin: 0 2rem 0 2rem;
+    text-align: center;
+    width: 80%;
+}
+fieldset {
+    display: flex;
+}
+
+.cliente {
+    display: flex;
+    margin: 0 2rem 1.5rem 2rem;
+    width: 80%;
+}
+
+.cliente div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+.cliente div input {
+    width: 100%;
+    margin: 0;
+    padding: 0.5rem;
+}
+#price {
+    margin: 0 2rem;
+}
+.priceL {
+    margin: 0.5rem 2rem 2rem 2rem !important;
+}
+
+@media (max-width:480px) {
+    body {
+        height: auto;
+        overflow: scroll;
+    }
+}
