@@ -6,6 +6,7 @@
 body {
     display: flex;
     justify-content: center;
+    text-align: center;
     height: 100vh;
 
 }
@@ -19,17 +20,21 @@ form {
 .campos {
     width: 100%;
 }
+
+input {
+    margin-bottom: 0.6rem !important;
+}
 .campos input, .campos textarea {
     text-transform: uppercase;
     text-align: center;
-    margin: 0 2rem 1.5rem 2rem;
+    margin: 0 auto;
     padding: 0.5rem;
     display: block;
     border: 1px solid;
     width: 80%;
 }
 .campos label, fieldset {
-    margin: 0 2rem 0 2rem;
+    margin: 0 auto;
     text-align: center;
     width: 80%;
 }
@@ -39,7 +44,7 @@ fieldset {
 
 .cliente {
     display: flex;
-    margin: 0 2rem 1.5rem 2rem;
+    margin: 0 auto;
     width: 80%;
 }
 
@@ -52,19 +57,20 @@ fieldset {
 }
 .cliente div input {
     width: 100%;
-    margin: 0;
+    margin: 0 auto;
     padding: 0.5rem;
 }
 #price {
-    margin: 0 2rem;
+    margin: 0 auto;
 }
 .priceL {
-    margin: 0.5rem 2rem 2rem 2rem !important;
+    margin: 0 auto;
 }
 
 @media (max-width:480px) {
     body {
         height: auto;
         overflow: scroll;
+        display: block;
     }
 }
