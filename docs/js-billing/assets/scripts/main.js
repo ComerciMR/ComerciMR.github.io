@@ -141,11 +141,11 @@ function Millones(num) {
     cientos = Math.floor(num / divisor)
     resto = num - (cientos * divisor)
 
-    if (resto>0) {
+    if (resto > 0) {
         strMillones = Seccion(num, divisor, "UN MILLON", "MILLONES");
     } else {
         strMillones = Seccion(num, divisor, "UN MILLON DE", "MILLONES DE");
-        
+
     }
     strMiles = Miles(resto);
 
@@ -167,21 +167,21 @@ function NumeroALetras(num) {
         letrasMonedaCentavoPlural: "CENTAVOS",
         letrasMonedaCentavoSingular: "CENTAVO"
     };
-    
+
     if (data.centavos > 0) {
         data.letrasCentavos = "CON " + (function () {
             if (data.centavos == 1)
-            return Millones(data.centavos) + " " + data.letrasMonedaCentavoSingular;
+                return Millones(data.centavos) + " " + data.letrasMonedaCentavoSingular;
             else
-            return Millones(data.centavos) + " " + data.letrasMonedaCentavoPlural;
+                return Millones(data.centavos) + " " + data.letrasMonedaCentavoPlural;
         })();
     };
 
     if (data.enteros == 0)
         return "CERO " + data.letrasMonedaPlural + " " + data.letrasCentavos;
-        if (data.enteros == 1)
+    if (data.enteros == 1)
         return Millones(data.enteros) + " " + data.letrasMonedaSingular + " " + data.letrasCentavos;
-        else
+    else
         return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
 }//NumeroALetras()
 
@@ -193,9 +193,86 @@ $(document).ready(() => {
         document.getElementById("priceL").value = numero;
     })
     const fechaActual = new Date();
-    const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    fecha = fechaActual.toLocaleDateString('es-co', opciones);
+    // const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const meses = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+    fecha = fechaActual.getFullYear() + "-" + meses[fechaActual.getMonth()] + "-" + fechaActual.getDate();
     document.getElementById("date").value = fecha;
+    previewHTMLFile();
+    $("#bottomB").change('#previewHtml', function () {
+        previewHTMLFile();
+    });
+
+    // $("#previewHtmlContent").load('/print.html')
+    function previewHTMLFile() {
+        $('#previewHtmlContent').load('./print_copy.html');
+        date = document.getElementById("date").value;
+        brand = document.getElementById("brand").value;
+        number = document.getElementById("number").value;
+        client = document.getElementById("client").value;
+        clientID = document.getElementById("clientID").value;
+        clientNUM = document.getElementById("clientNUM").value;
+        concept = document.getElementById("concept").value;
+        price = Number(document.getElementById("price").value);
+        priceL = document.getElementById("priceL").value;
+        autosave = document.getElementById("autosave").value;
+        const fechaActual = new Date(date + ":");
+        const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateL = fechaActual.toLocaleDateString('es-CO', opciones);
+
+        function empresa(name, number, whatsapp, mail, img) {
+            this.name = name;
+            this.number = number;
+            this.whatsapp = whatsapp;
+            this.mail = mail;
+            this.img = img;
+        }
+
+        var empresas = [];
+
+        var emp = new empresa("Muñoz & Ruiz Abogados", "+576043379401", 573508809878, "ruizmunoz1003@gmail.com", "mra");
+        empresas.push(emp);
+        var emp = new empresa("Comercializadora MR", "+576043379401", 573008212386, "ruizmunoz1003@gmail.com", "cmr");
+        empresas.push(emp);
+        var emp = new empresa("Alejandra Muñoz Marín", "+576043379401", 573508809878, "alejandramunozabg@outlook.com", "am");
+        empresas.push(emp);
+
+        setTimeout(() => {
+            $("title").text("Comprobante de pago #00" + number);
+            $("#brandT").text(empresas[Number(brand)].name.toUpperCase());
+            $("#brandN").text(empresas[Number(brand)].number);
+            $("#brandNA").attr("href", "tel:" + empresas[Number(brand)].number);
+            $("#brandW").text(empresas[Number(brand)].whatsapp);
+            $("#brandWA").attr("href", "https://api.whatsapp.com/send?phone=" + empresas[Number(brand)].whatsapp);
+            $("#brandM").text(empresas[Number(brand)].mail.toLowerCase());
+            $("#brandMA").attr("href", "mailto:" + empresas[Number(brand)].mail);
+            $("#logo").attr("src", "./assets/img/" + empresas[Number(brand)].img + ".png");
+            $("#logo").attr("alt", "Logo - " + empresas[Number(brand)].name + " - (" + empresas[Number(brand)].img + ".png)");
+    
+            $(".date").text(dateL.toUpperCase());
+            $(".number").text(number);
+            $(".client").text(client.toUpperCase());
+            $(".clientID").text(clientID);
+            $(".clientNUM").text(clientNUM);
+            $(".concept").text(concept.toUpperCase());
+            $(".price").text(price.toLocaleString('es-CO'));
+            $(".priceL").text(priceL.toUpperCase());
+        }, 100);
+    }
+    $(document).on('click', '#convertHtmlToPDF', function () {
+        converHTMLToPDF();
+    });
+    function converHTMLToPDF() {
+        const { jsPDF } = window.jspdf;
+        var pdf = new jsPDF('p', 'mm', [220, 280]);
+        var pdfjs = document.querySelector('#previewHtmlContent');
+        pdf.html(pdfjs, {
+            callback: function (pdf) {
+                pdf.save("Comprobante de pago #00" + number + ".pdf");
+            },
+            x: 5,
+            y: 5
+        });
+    }
 })
 
 function generar() {
@@ -208,7 +285,11 @@ function generar() {
     concept = document.getElementById("concept").value;
     price = document.getElementById("price").value;
     priceL = document.getElementById("priceL").value;
+    autosave = document.getElementById("autosave").value;
 
-    window.open("print.html?date="+date+"&brand="+brand+"&number="+number+"&client="+client+"&clientID="+clientID+"&clientNUM="+clientNUM+"&concept="+concept+"&price="+price+"&priceL="+priceL);
+    openedWindow = window.open("print.html?date=" + date + "&brand=" + brand + "&number=" + number + "&client=" + client + "&clientID=" + clientID + "&clientNUM=" + clientNUM + "&concept=" + concept + "&price=" + price + "&priceL=" + priceL + "&autosave=" + autosave);
+    openedWindow.addEventListener('afterprint', (event) => {
+        openedWindow.close();
+    })
     return false;
 }

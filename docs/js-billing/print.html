@@ -4,21 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
+    <meta name="viewport" content="width=480, initial-scale=1.0, user-scalable=no">
     <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
     <script src="./assets/scripts/print.js"></script>
     <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
-    <title>Comprobante de pago</title>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script type="module" src="./assets/scripts/html2canvas/dist/html2canvas.min.js"></script>
+    <title></title>
     <style>
         * {
             font-family: arial, sans-serif;
         }
 
         body {
-            max-width: 600px;
+            border: 1px solid;
+            width: fit-content;
+            height: calc(280mm*0.25);
             margin: 0 auto;
             padding: 10px;
+            display: flex;
+        }
+        #content {
+            width: calc(220mm*0.25);
+            border: 1px solid;
+            display: block;
+        }
+
+        #items {
+            margin-top: 0.3rem;
+            display: flex;
+            width: 100%;
         }
 
         #items .row {
@@ -54,40 +69,103 @@
             font-weight: 700;
             background: #fff4f4;
         }
+
+        
+        .head {
+            display: flex;
+        }
+        .logo {
+            width: 40%;
+        }
+        .data {
+            width: 60%;
+            font-size: 0.4rem;
+        }
+        h5 {
+            font-size: 0.55rem;
+            margin: 0;
+        }
+        #items div h5 {
+            font-size: 0.3rem;
+            margin: 0;
+        }
+        #items div h6 {
+            font-size: 0.3rem;
+            margin: 0;
+        }
+        #items div {
+            width: 50%;
+            padding: 0 0.4rem;
+            border: 1px solid;
+        }
+        h6 {
+            font-size: 0.4rem;
+            margin: 0;
+            height: fit-content;
+        }
+        h6#fecha {
+            font-size: 0.3rem;
+        }
+        #brandT {
+            font-size: xx-small;
+        }
+        hr {
+            margin: 0.2rem;
+        }
+        .comp {
+            border: 1px solid;
+            margin: 0;
+            padding: 0 0.3rem 0.15rem 0.3rem;
+        }
+        .print {
+            margin-left: 1rem;
+        }
     </style>
 </head>
 
 <body>
-    <header id="head">
-        <div class="row pad-top font-big">
-            <div class="col-lg-3 col-md-3 col-sm-3">
-                <a href="" target="_self"><img id="logo" width="150%" height="100%" src="" alt="Logo" /> </a>
+    <div id="content">
+        <header id="head">
+            <div class="head">
+                <div class="logo">
+                    <a href="" target="_self"><img id="logo" width="100%" height="100%" src="" alt="Logo" /> </a>
+                </div>
+                <div class="data">
+                    <strong>
+                        <h6> <span id="brandT"></span></h6>
+                    </strong>
+                    <strong> Teléfono: </strong> <a id="brandNA" href="" target="_blank"><span id="brandN"></span></a>
+                    <br>
+                    <strong> WhatsApp: </strong> <a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
+                    <br>
+                    <strong> E-mail: </strong> <a id="brandMA" href="" target="_blank"><span id="brandM"></span></a>
+                    <br>
+                    <strong> Dirección: </strong>
+                    Sabaneta, Antioquia.
+                </div>
             </div>
-            <div class="col-lg-9 col-md-9 col-sm-9">
-                <strong>
-                    <h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="brandT"></span></h3>
-                </strong>
-                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teléfono: </strong> <a id="brandNA" href="" target="_blank"><span id="brandN"></span></a>
-                <br>
-                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WhatsApp: </strong> <a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
-                <br>
-                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E-mail: </strong> <a id="brandMA" href="" target="_blank"><span id="brandM"></span></a>
-                <br>
-                <strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dirección: </strong>
-                Sabaneta, Antioquia, Colombia.
+        </header>
+        <!-- <hr> -->
+        <div class="comp">
+            <h5><b>Comprobante de pago #00<span id="number"></span></b></h5>
+            <h6 id="fecha"><b>Fecha: </b><span id="date"></span></h6>
+            <h6><b>Cliente: </b><span id="client"></span></h6>
+            <h6><b>C.C.: </b><span id="clientID"></span> <b> Teléfono: </b><span id="clientNUM"></span></h6>
+            <div id="items">
+                <div class="itemL">
+                    <h6><b>Concepto: </b></h6>
+                    <h5><span id="concept"></span></h5>
+                </div>
+                <div class="itemR">
+                    <h6><b>Suma: </b></h5>
+                    <h5>$<span id="price"></span> <br> (<span id="priceL"></span>)</h5>
+                </div>
             </div>
         </div>
-    </header>
-    <hr>
-    <h2>Comprobante de pago #00<span id="number"></span></h2>
-    <h4><b>Fecha: </b><span id="date"></span></h4>
-    <h4><b>Cliente: </b><span id="client"></span></h4>
-    <h4><b>C.C.: </b><span id="clientID"></span> <b> Teléfono: </b><span id="clientNUM"></span></h4>
-    <div id="items">
-        <h5><b>Concepto: </b></h5>
-        <h4><span id="concept"></span></h4>
-        <h5><b>Suma: </b></h5>
-        <h4>$<span id="price"></span> (<span id="priceL"></span>)</h4>
+    </div>
+    <div id="elementH"></div>
+    <div class="print">
+        <button class="btn btn-dark">Imprimir</button>
     </div>
 </body>
 

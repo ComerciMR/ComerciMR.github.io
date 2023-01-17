@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
-    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
+    <script type="module" src="./assets/scripts/html2canvas/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script src="./assets/scripts/main.js"></script>
     <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/styles/main.css">
@@ -14,15 +15,16 @@
 </head>
 
 <body>
-    <form id="bottomB" onsubmit="generar()">
+    <form id="bottomB" onsubmit="generar(); return false">
         <div class="campos">
             <label for="date">Fecha:</label>
-            <input type="text" id="date" readonly>
+            <input type="date" id="date" required>
             <label for="brand">Empresa:</label>
             <input list="brandopt" id="brand" required>
             <datalist id="brandopt">
                 <option value="0">Muñoz & Ruiz Abogados</option>
                 <option value="1">Comercializadora MR</option>
+                <option value="2">Alejandra Muñoz Marín</option>
             </datalist>
             <label for="number">*Número:</label>
             <input type="number" id="number" required>
@@ -44,7 +46,33 @@
             <input type="number" id="price" min="10000" step="1" value="10000" required>
             <input type="text" id="priceL" readonly>
         </div>
-        <button class="btn btn-primary" id="addButton" type="submit">Generar</button>
+        <div id="enviar">
+            <label for="autosave">Auto guardar documento: </label> <input type="checkbox" id="autosave">
+            <button class="btn btn-primary" id="addButton" type="submit">Generar</button>
+        </div>
+    </form>
+    <form name="foo" method="post" class="input-form" enctype="multipart/form-data">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group has-success">
+                            <div class="preview hidden">
+                                <p><strong>Vista previa</strong></p>
+                                <hr>
+                                <div id="previewHtmlContent"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 left">
+                        <br>
+                        <input type="button" value="Crear PDF" class="btn btn-info hidden" id="convertHtmlToPDF">
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
     <script src="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/js/bootstrap.min.js"></script>
 </body>
