@@ -6,6 +6,7 @@
 body {
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
     height: 100vh;
 
@@ -61,7 +62,7 @@ fieldset {
     padding: 0.5rem;
 }
 #price {
-    margin: 0 auto;
+    margin: 0 auto !important;
 }
 .priceL {
     margin: 0 auto;
