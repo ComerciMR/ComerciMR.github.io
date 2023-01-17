@@ -66,7 +66,7 @@ $(document).ready(() => {
         callback: function (pdf) {
             // pdf.output('dataurlnewwindow');
             pdf.autoPrint({ variant: 'javascript' });
-            if (autosave == 'on') {
+            if (autosave == 'true') {
                 pdf.save("Comproba nte de pago #00" + number + ".pdf");
             }
         },

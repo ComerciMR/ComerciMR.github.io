@@ -285,7 +285,7 @@ function generar() {
     concept = document.getElementById("concept").value;
     price = document.getElementById("price").value;
     priceL = document.getElementById("priceL").value;
-    autosave = document.getElementById("autosave").value;
+    autosave = document.getElementById("autosave").checked;
 
     openedWindow = window.open("print.html?date=" + date + "&brand=" + brand + "&number=" + number + "&client=" + client + "&clientID=" + clientID + "&clientNUM=" + clientNUM + "&concept=" + concept + "&price=" + price + "&priceL=" + priceL + "&autosave=" + autosave);
     openedWindow.addEventListener('afterprint', (event) => {
