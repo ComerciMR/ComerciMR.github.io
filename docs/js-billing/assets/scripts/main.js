@@ -1,4 +1,4 @@
-
+version = 2.5;
 /*************************************************************/
 // NumeroALetras
 // The MIT License (MIT)
@@ -186,6 +186,8 @@ function NumeroALetras(num) {
 }//NumeroALetras()
 
 $(document).ready(() => {
+    $('#version').text(version);
+
     numero = NumeroALetras(document.getElementById("price").value);
     document.getElementById("priceL").value = numero;
     $("#price").change(() => {
@@ -203,8 +205,8 @@ $(document).ready(() => {
     });
 
     // $("#previewHtmlContent").load('/print.html')
+    $('#previewHtmlContent').load('./print_copy.html');
     function previewHTMLFile() {
-        $('#previewHtmlContent').load('./print_copy.html');
         date = document.getElementById("date").value;
         brand = document.getElementById("brand").value;
         number = document.getElementById("number").value;
@@ -219,8 +221,10 @@ $(document).ready(() => {
         const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         dateL = fechaActual.toLocaleDateString('es-CO', opciones);
 
-        function empresa(name, number, whatsapp, mail, img) {
+        function empresa(name, idtype, id, number, whatsapp, mail, img) {
             this.name = name;
+            this.idtype = idtype;
+            this.id = id;
             this.number = number;
             this.whatsapp = whatsapp;
             this.mail = mail;
@@ -228,21 +232,28 @@ $(document).ready(() => {
         }
 
         var empresas = [];
+        var idtype = [NaN,"NIT","C.C."];
 
-        var emp = new empresa("Muñoz & Ruiz Abogados", "+576043379401", 573508809878, "ruizmunoz1003@gmail.com", "mra");
+        var emp = new empresa("Muñoz & Ruiz Abogados", 0, NaN, "6043379401", 3508809878, "ruizmunoz1003@gmail.com", "mra");
         empresas.push(emp);
-        var emp = new empresa("Comercializadora MR", "+576043379401", 573008212386, "ruizmunoz1003@gmail.com", "cmr");
+        var emp = new empresa("Comercializadora MR", 0, NaN, "6043379401", 3008212386, "ruizmunoz1003@gmail.com", "cmr");
         empresas.push(emp);
-        var emp = new empresa("Alejandra Muñoz Marín", "+576043379401", 573508809878, "alejandramunozabg@outlook.com", "am");
+        var emp = new empresa("Alejandra Muñoz Marín", 2, 40328563, "6043379401", 3508809878, "alejandramunozabg@outlook.com", "am");
         empresas.push(emp);
 
         setTimeout(() => {
             $("title").text("Comprobante de pago #00" + number);
             $("#brandT").text(empresas[Number(brand)].name.toUpperCase());
+            if (empresas[Number(brand)].idtype == 0) {
+                $('.idb').remove();
+            } else {
+                $("#brandIDT").text(idtype[empresas[Number(brand)].idtype].toUpperCase());
+                $("#brandID").text(empresas[Number(brand)].id);
+            }
             $("#brandN").text(empresas[Number(brand)].number);
-            $("#brandNA").attr("href", "tel:" + empresas[Number(brand)].number);
+            $("#brandNA").attr("href", "tel:+57" + empresas[Number(brand)].number);
             $("#brandW").text(empresas[Number(brand)].whatsapp);
-            $("#brandWA").attr("href", "https://api.whatsapp.com/send?phone=" + empresas[Number(brand)].whatsapp);
+            $("#brandWA").attr("href", "https://api.whatsapp.com/send?phone=57" + empresas[Number(brand)].whatsapp);
             $("#brandM").text(empresas[Number(brand)].mail.toLowerCase());
             $("#brandMA").attr("href", "mailto:" + empresas[Number(brand)].mail);
             $("#logo").attr("src", "./assets/img/" + empresas[Number(brand)].img + ".png");
@@ -256,6 +267,7 @@ $(document).ready(() => {
             $(".concept").text(concept.toUpperCase());
             $(".price").text(price.toLocaleString('es-CO'));
             $(".priceL").text(priceL.toUpperCase());
+            $(".version").text(version);
         }, 100);
     }
     $(document).on('click', '#convertHtmlToPDF', function () {
@@ -263,11 +275,13 @@ $(document).ready(() => {
     });
     function converHTMLToPDF() {
         const { jsPDF } = window.jspdf;
-        var pdf = new jsPDF('p', 'mm', [220, 280]);
+        var pdf = new jsPDF('l', 'mm', [220, 140],true);
         var pdfjs = document.querySelector('#previewHtmlContent');
         pdf.html(pdfjs, {
             callback: function (pdf) {
-                pdf.save("Comprobante de pago #00" + number + ".pdf");
+                // pdf.save("Comprobante de pago #00" + number + ".pdf");
+                pdf.output('dataurlnewwindow');
+
             },
             x: 5,
             y: 5
@@ -287,7 +301,7 @@ function generar() {
     priceL = document.getElementById("priceL").value;
     autosave = document.getElementById("autosave").checked;
 
-    openedWindow = window.open("print.html?date=" + date + "&brand=" + brand + "&number=" + number + "&client=" + client + "&clientID=" + clientID + "&clientNUM=" + clientNUM + "&concept=" + concept + "&price=" + price + "&priceL=" + priceL + "&autosave=" + autosave);
+    openedWindow = window.open("print.html?date=" + date + "&brand=" + brand + "&number=" + number + "&client=" + client + "&clientID=" + clientID + "&clientNUM=" + clientNUM + "&concept=" + concept + "&price=" + price + "&priceL=" + priceL + "&autosave=" + autosave + "&version=" + version);
     openedWindow.addEventListener('afterprint', (event) => {
         openedWindow.close();
     })

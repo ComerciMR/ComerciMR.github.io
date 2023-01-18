@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script type="module" src="./assets/scripts/html2canvas/dist/html2canvas.min.js"></script>
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script type="module"  src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script src="./assets/scripts/main.js"></script>
+    <script src="./assets/scripts/index.js"></script>
     <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/styles/main.css">
     <title>Generar Comprobante de Pago</title>
 </head>
 
 <body>
-    <h1>Generador CDP v2.4</h1>
+    <h1>Generador CDP v<span id="version"></span></h1>
     <form id="bottomB" onsubmit="generar(); return false">
         <div class="campos">
             <label for="date">Fecha:</label>
@@ -59,7 +61,7 @@
                     <div class="col-md-12">
                         <div class="form-group has-success">
                             <div class="preview hidden">
-                                <p><strong>Vista previa</strong></p>
+                                <strong>Vista previa</strong>
                                 <hr>
                                 <div id="previewHtmlContent"></div>
                             </div>

@@ -1,6 +1,6 @@
 <style>
     * {
-        font-family: arial, sans-serif;
+        font-family: 'Roboto', sans-serif;
     }
 
     #content {
@@ -53,12 +53,14 @@
     
     .head {
         display: flex;
+        align-items: center;
     }
     .logo {
         width: 40%;
     }
     .data {
         width: 60%;
+        height: fit-content;
         font-size: 0.4rem;
     }
     h5 {
@@ -93,15 +95,20 @@
         margin: 0.2rem;
     }
     .comp {
-        border: 1px solid;
+        border-top: 1px solid;
         margin: 0;
-        padding: 0 0.3rem 0.15rem 0.3rem;
+        padding: 0 0.3rem 0.05rem 0.3rem;
     }
     .print {
         margin-left: 1rem;
     }
+    p {
+        text-align: right;
+        font-size: 0.2rem;
+        margin: 0 0.3rem;
+    }
 </style>
-<div id="content">
+<div id="content" style="@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&family=Space+Mono&display=swap'); font-family: 'Roboto', sans-serif;">
     <header id="head">
         <div class="head">
             <div class="logo">
@@ -111,9 +118,10 @@
                 <strong>
                     <h6> <span id="brandT"></span></h6>
                 </strong>
-                <strong> Teléfono: </strong> <a id="brandNA" href="" target="_blank"><span id="brandN"></span></a>
-                <br>
-                <strong> WhatsApp: </strong> <a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
+                <strong class="idb"> <span id="brandIDT"></span>: </strong> <span class="idb" id="brandID"></span>
+                <br class="idb">
+                <strong> Tel: </strong><a id="brandNA" href="" target="_blank"><span id="brandN"></span></a> -
+                <strong> WP: </strong><a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
                 <br>
                 <strong> E-mail: </strong> <a id="brandMA" href="" target="_blank"><span id="brandM"></span></a>
                 <br>
@@ -139,5 +147,6 @@
             </div>
         </div>
     </div>
+    <p>v<span class="version"></span></p>
 </div>
 <div id="elementH"></div>

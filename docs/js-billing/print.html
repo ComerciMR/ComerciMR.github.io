@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=480, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=480, initial-scale=1.0">
     <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
     <script src="./assets/scripts/print.js"></script>
     <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script type="module" src="./assets/scripts/html2canvas/dist/html2canvas.min.js"></script>
     <title></title>
     <style>
-        * {
-            font-family: arial, sans-serif;
-        }
 
         body {
+            transform: scale(2);
             border: 1px solid;
             width: fit-content;
             height: calc(280mm*0.25);
             margin: 0 auto;
             padding: 10px;
             display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         #content {
             width: calc(220mm*0.25);
             border: 1px solid;
             display: block;
+        }
+
+        .head {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40%;
+        }
+
+        .data {
+            width: 60%;
+            height: fit-content;
+            font-size: 0.4rem;
         }
 
         #items {
@@ -36,95 +54,77 @@
             width: 100%;
         }
 
-        #items .row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
 
-        #items .row:nth-child(odd) {
-            background: #fff4f4;
-        }
-
-        #items .total,
-        #items .qty,
-        #items .name,
-        #items .price {
-            padding: 5px;
-        }
-
-        #items .qty {
-            width: 50px;
-        }
-
-        #items .name {
-            flex-grow: 1;
-        }
-
-        #items .price {
-            width: 100px;
-        }
-
-        #items .total {
-            font-weight: 700;
-            background: #fff4f4;
-        }
-
-        
-        .head {
-            display: flex;
-        }
-        .logo {
-            width: 40%;
-        }
-        .data {
-            width: 60%;
-            font-size: 0.4rem;
-        }
         h5 {
             font-size: 0.55rem;
             margin: 0;
         }
+
         #items div h5 {
             font-size: 0.3rem;
             margin: 0;
         }
+
         #items div h6 {
             font-size: 0.3rem;
             margin: 0;
         }
+
         #items div {
             width: 50%;
             padding: 0 0.4rem;
             border: 1px solid;
         }
+
         h6 {
             font-size: 0.4rem;
             margin: 0;
             height: fit-content;
         }
+
         h6#fecha {
             font-size: 0.3rem;
         }
+
         #brandT {
             font-size: xx-small;
         }
+
         hr {
             margin: 0.2rem;
         }
+
         .comp {
-            border: 1px solid;
+            border-top: 1px solid;
             margin: 0;
-            padding: 0 0.3rem 0.15rem 0.3rem;
+            padding: 0 0.3rem 0.05rem 0.3rem;
         }
+
         .print {
             margin-left: 1rem;
+        }
+
+        p {
+            text-align: right;
+            font-size: 0.2rem;
+            margin: 0 0.3rem;
+        }
+
+        @media (max-width:480px) {
+            body {
+                display: block;
+                margin: 9rem auto;
+            }
+
+            .btn {
+                margin-top: 1rem;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div id="content">
+    <div id="content" style="font-family: 'Roboto', sans-serif;">
         <header id="head">
             <div class="head">
                 <div class="logo">
@@ -134,9 +134,10 @@
                     <strong>
                         <h6> <span id="brandT"></span></h6>
                     </strong>
-                    <strong> Teléfono: </strong> <a id="brandNA" href="" target="_blank"><span id="brandN"></span></a>
-                    <br>
-                    <strong> WhatsApp: </strong> <a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
+                    <strong class="idb"> <span id="brandIDT"></span>: </strong> <span class="idb" id="brandID"></span>
+                    <br class="idb">
+                    <i class="bi bi-phone"></i> <a id="brandNA" href="" target="_blank"><span id="brandN"></span></a>
+                    <i class="bi bi-whatsapp"></i> <a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
                     <br>
                     <strong> E-mail: </strong> <a id="brandMA" href="" target="_blank"><span id="brandM"></span></a>
                     <br>
@@ -158,14 +159,15 @@
                 </div>
                 <div class="itemR">
                     <h6><b>Suma: </b></h5>
-                    <h5>$<span id="price"></span> <br> (<span id="priceL"></span>)</h5>
+                        <h5>$<span id="price"></span> <br> (<span id="priceL"></span>)</h5>
                 </div>
             </div>
         </div>
+        <p>v<span id="version"></span></p>
     </div>
     <div id="elementH"></div>
     <div class="print">
-        <button class="btn btn-dark">Imprimir</button>
+        <button class="btn btn-dark" onclick="printDoc()"><i class="bi bi-download"></i> Descargar PDF</button>
     </div>
 </body>
 
