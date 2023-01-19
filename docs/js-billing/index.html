@@ -6,10 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script src="/node_modules/jquery/dist/jquery.js"></script>
-    <script type="module" src="./assets/scripts/html2canvas/dist/html2canvas.min.js"></script>
-    <script type="module"  src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script type="module" src="/node_modules/html2canvas/dist/html2canvas.js"></script>
+    <script type="module" src="/node_modules/jspdf/dist/jspdf.umd.min.js"></script>
     <script src="./assets/scripts/main.js"></script>
-    <script src="./assets/scripts/index.js"></script>
     <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./assets/styles/main.css">
@@ -23,28 +22,27 @@
             <label for="date">Fecha:</label>
             <input type="date" id="date" required>
             <label for="brand">Empresa:</label>
-            <input list="brandopt" id="brand" required>
-            <datalist id="brandopt">
+            <select id="brand" required>
                 <option value="0">Muñoz & Ruiz Abogados</option>
                 <option value="1">Comercializadora MR</option>
                 <option value="2">Alejandra Muñoz Marín</option>
-            </datalist>
+            </select>
             <label for="number">*Número:</label>
-            <input type="number" id="number" required>
+            <input type="number" id="number" placeholder="Ej: 001" required>
             <label for="client">*Cliente:</label>
-            <input type="text" id="client" required>
+            <input type="search" id="client" placeholder="Ej: sergio muñoz marín" required>
             <div class="cliente">
                 <div class="doc">
                     <label for="clientID">*Documento:</label>
-                    <input type="number" id="clientID" required>
+                    <input type="number" id="clientID" placeholder="ej: 1029983265" required>
                 </div>
                 <div class="num">
                     <label for="clientNUM">*Celular:</label>
-                    <input type="number" id="clientNUM" required>
+                    <input type="number" id="clientNUM" placeholder="ej: 3007371472" required>
                 </div>
             </div>
             <label for="concept">*Concepto:</label>
-            <textarea id="concept" cols="30" rows="1" required></textarea>
+            <textarea id="concept" cols="30" rows="auto" placeholder="Ej: consulta jurídica" required></textarea>
             <label for="price">*Valor:</label>
             <input type="number" id="price" min="10000" step="1" value="10000" required>
             <input type="text" id="priceL" readonly>
@@ -54,26 +52,26 @@
             <button class="btn btn-primary" id="addButton" type="submit">Generar</button>
         </div>
     </form>
+    <hr>
     <form name="foo" method="post" class="input-form" enctype="multipart/form-data">
-        <div class="panel panel-primary">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group has-success">
-                            <div class="preview hidden">
-                                <strong>Vista previa</strong>
-                                <hr>
-                                <div id="previewHtmlContent"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 left">
-                        <br>
-                        <input type="button" value="Crear PDF" class="btn btn-info hidden" id="convertHtmlToPDF">
-                    </div>
-                </div>
+        <div>
+            <strong>Comprobante en blanco</strong>
+            <br>
+            <label for="brand2">Crear comprobante para:</label>
+            <select id="brand2" required>
+                <option value="0">Muñoz & Ruiz Abogados</option>
+                <option value="1">Comercializadora MR</option>
+                <option value="2">Alejandra Muñoz Marín</option>
+            </select>
+            <input type="button" value="Crear" class="btn btn-info hidden" id="blankformat">
+        </div>
+        <hr>
+        <strong>Vista previa</strong>
+        <div id="previewHtmlContent"></div>
+        <div class="row">
+            <div class="col-md-12 left">
+                <br>
+                <input type="button" value="Crear PDF" class="btn btn-info hidden" id="convertHtmlToPDF">
             </div>
         </div>
     </form>

@@ -6,28 +6,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=480, initial-scale=1.0">
-    <script src="https://sergio666xd.github.io/npm/jquery-3.6.1/dist/jquery.js"></script>
-    <script src="./assets/scripts/print.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-    <script type="module" src="./assets/scripts/html2canvas/dist/html2canvas.min.js"></script>
+    <script type="module" src="/node_modules/html2canvas/dist/html2canvas.js"></script>
+    <script type="module" src="/node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+    <script src="./assets/scripts/print.js"></script>
     <title></title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&family=Space+Mono&display=swap');
+
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
 
         body {
-            transform: scale(2);
+            zoom: 300%;
             border: 1px solid;
-            width: fit-content;
-            height: calc(280mm*0.25);
-            margin: 0 auto;
-            padding: 10px;
+            height: calc(280mm*0.3);
+            margin: 10px auto;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+        
+        #loading {
+            display: none;
+        }
+        
+        .--active {
+            z-index: 1;
+            display: flex !important;
+            justify-content: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
         }
 
         #content {
+            z-index: 0;
             width: calc(220mm*0.25);
             border: 1px solid;
             display: block;
@@ -43,9 +62,10 @@
         }
 
         .data {
-            width: 60%;
+            width: fit-content;
             height: fit-content;
             font-size: 0.4rem;
+            margin: 0 auto;
         }
 
         #items {
@@ -72,7 +92,7 @@
 
         #items div {
             width: 50%;
-            padding: 0 0.4rem;
+            padding: 0.17rem 0.4rem;
             border: 1px solid;
         }
 
@@ -81,7 +101,7 @@
             margin: 0;
             height: fit-content;
         }
-
+        
         h6#fecha {
             font-size: 0.3rem;
         }
@@ -102,6 +122,13 @@
 
         .print {
             margin-left: 1rem;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .print button {
+            margin-bottom: 1rem;
         }
 
         p {
@@ -109,11 +136,22 @@
             font-size: 0.2rem;
             margin: 0 0.3rem;
         }
-
+        
         @media (max-width:480px) {
             body {
-                display: block;
-                margin: 9rem auto;
+                zoom: 200%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                overflow: hidden;
+            }
+
+            .print {
+                margin-left: 0;
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
             }
 
             .btn {
@@ -124,6 +162,7 @@
 </head>
 
 <body>
+    <div id="loading"> :·: Cargando PDF :·: </div>
     <div id="content" style="font-family: 'Roboto', sans-serif;">
         <header id="head">
             <div class="head">
@@ -136,8 +175,9 @@
                     </strong>
                     <strong class="idb"> <span id="brandIDT"></span>: </strong> <span class="idb" id="brandID"></span>
                     <br class="idb">
-                    <i class="bi bi-phone"></i> <a id="brandNA" href="" target="_blank"><span id="brandN"></span></a>
-                    <i class="bi bi-whatsapp"></i> <a id="brandWA" href="" target="_blank"><span id="brandW"></span></a>
+                    <a id="brandNA" href="" target="_blank"><i class="bi bi-telephone"></i><span id="brandN"></span></a>
+                    -
+                    <a id="brandWA" href="" target="_blank"><i class="bi bi-whatsapp"></i><span id="brandW"></span></a>
                     <br>
                     <strong> E-mail: </strong> <a id="brandMA" href="" target="_blank"><span id="brandM"></span></a>
                     <br>
@@ -167,7 +207,8 @@
     </div>
     <div id="elementH"></div>
     <div class="print">
-        <button class="btn btn-dark" onclick="printDoc()"><i class="bi bi-download"></i> Descargar PDF</button>
+        <button class="btn btn-dark" onclick="printDoc('save')"><i class="bi bi-download"></i> Descargar PDF</button>
+        <button class="btn btn-outline-dark" onclick="printDoc('print')"><i class="bi bi-printer"></i> Imprimir</button>
     </div>
 </body>
 

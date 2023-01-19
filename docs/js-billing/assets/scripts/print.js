@@ -16,8 +16,10 @@ const fechaActual = new Date(date + ":");
 const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 dateL = fechaActual.toLocaleDateString('es-CO', opciones);
 
-function empresa(name, number, whatsapp, mail, img) {
+function empresa(name, idtype, id, number, whatsapp, mail, img) {
     this.name = name;
+    this.idtype = idtype;
+    this.id = id;
     this.number = number;
     this.whatsapp = whatsapp;
     this.mail = mail;
@@ -62,52 +64,26 @@ $(document).ready(() => {
     $("#price").text(price.toLocaleString('es-CO'));
     $("#priceL").text(priceL.toUpperCase());
     $("#version").text(version);
-    const { jsPDF } = window.jspdf;
-    var pdf = new jsPDF('l', 'mm', [220, 140]);
-    var specialElementHandlers = {
-        '#elementH': function (element, renderer) {
-            return true;
-        }
-    };
-    var pdfjs = document.querySelector('#content');
-    pdf.html(pdfjs, {
-        'width': 220,
-        'elementHandlers': specialElementHandlers,
-        callback: function (pdf) {
-            pdf.autoPrint({ variant: 'javascript' });
-            if (autosave == 'true') {
-                pdf.save("Comproba nte de pago #00" + number + ".pdf");
-                $('body').css('transform', 'scale(2)')
-            } else {
-                $('body').css('transform', 'scale(2)')
-            }
-        },
-        x: 5,
-        y: 5
-    });
+    if (autosave == 'true') {
+        printDoc();
+    }
 })
 
-function printDoc() {
-    $('body').css('transform', 'scale(1)')
-    const { jsPDF } = window.jspdf;
-    var pdf = new jsPDF('l', 'mm', [220, 140]);
-    var specialElementHandlers = {
-        '#elementH': function (element, renderer) {
-            return true;
+function printDoc(optDoc) {
+    $('#content').css('transform', 'scale(3)')
+    $('#loading').attr('class', '--active')
+    html2canvas(document.querySelector("#content"), { scale: 1.268 }).then(function (canvas) {
+        var img = canvas.toDataURL("image/png");
+        const { jsPDF } = window.jspdf;
+        var doc = new jsPDF('l', 'mm', [220, 140], true);
+        doc.addImage(img, 'JPEG', 5, 5);
+        if (optDoc == 'print') {
+            doc.autoPrint({ variant: 'non-conform' });
+            doc.output('dataurlnewwindow');
+        } else {
+            doc.save("Comprobante de pago #00" + number + ".pdf");
         }
-    };
-    var pdfjs = document.querySelector('#content');
-    pdf.html(pdfjs, {
-        'width': 220,
-        'elementHandlers': specialElementHandlers,
-        callback: function (pdf) {
-            // pdf.output('dataurlnewwindow');
-            pdf.autoPrint({ variant: 'javascript' });
-            pdf.save("Comproba nte de pago #00" + number + ".pdf");
-            $('body').css('transform', 'scale(2)')
-        },
-        x: 5,
-        y: 5
-
+        $('#content').css('transform', 'scale(1)')
+        $('#loading').attr('class', '')
     });
 }

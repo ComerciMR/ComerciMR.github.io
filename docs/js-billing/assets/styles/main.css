@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 1s all ease-in-out;
 }
 body {
     display: flex;
@@ -12,12 +13,21 @@ body {
     height: 100vh;
 
 }
-
+.dark {
+    display: none;
+}
+#previewHtmlContent {
+    z-index: 0;
+    overflow: hidden;
+    zoom: 200%;
+}
 form {
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-color: #fff;
 }
 .campos {
     width: 100%;
@@ -26,7 +36,7 @@ form {
 input {
     margin-bottom: 0.6rem !important;
 }
-.campos input, .campos textarea {
+.campos input, .campos textarea, select {
     text-transform: uppercase;
     text-align: center;
     margin: 0 auto;
@@ -34,6 +44,10 @@ input {
     display: block;
     border: 1px solid;
     width: 80%;
+}
+textarea {
+    transition: none;
+    height: fit-content;
 }
 .campos label, fieldset {
     margin: 0 auto;
@@ -62,11 +76,21 @@ fieldset {
     margin: 0 auto;
     padding: 0.5rem;
 }
+.clientNUM, .clientID {
+    width: 38.71px !important;
+}
 #price {
     margin: 0 auto !important;
 }
 .priceL {
     margin: 0 auto;
+}
+
+i.bi-whatsapp {
+    color: darkgreen;
+}
+i.bi-telephone {
+    color: rgb(100, 100, 100);
 }
 
 @media (max-width:480px) {
