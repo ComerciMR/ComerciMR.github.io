@@ -1,5 +1,6 @@
-version = '6.0';
+version = '6.1';
 url = '';
+classI = '';
 
 $(document).ready(() => {
     function isMobile() {
