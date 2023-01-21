@@ -10,19 +10,23 @@
     .--active {
         z-index: 2;
         display: flex !important;
-        justify-content: center;
+        flex-direction: column;
+        text-align: center;
         position: absolute;
-        width: 100%;
-        height: 100%;
+        width: 207.87px;
+        height: 124.77px;
         background-color: #fff;
     }
-
+    #elementH {
+        z-index: 1;
+    }
     #content {
         z-index: 0;
         width: calc(220mm*0.25);
         border: 1px solid;
         display: block;
         text-align: left;
+        transition: none;
     }
 
     .head {
@@ -103,7 +107,12 @@
         margin: 0 0.3rem;
     }
 </style>
-<div id="loading"> :·: Cargando PDF :·: </div>
+<div id="loading"> :·: Cargando :·: 
+    <span id="error" class="alert"></span>
+</div>
+<div id="elementH">
+    <img id="imgpreview" alt="Comprobante Imágen">
+</div>
 <div id="content"
     style="@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&family=Space+Mono&display=swap'); font-family: 'Roboto', sans-serif;">
     <header id="head">
@@ -147,4 +156,3 @@
     </div>
     <p>v<span class="version"></span></p>
 </div>
-<div id="elementH"></div>

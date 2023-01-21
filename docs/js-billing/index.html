@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1.0">
     <script src="./assets/scripts/jquery/dist/jquery.js"></script>
     <script type="module" src="./assets/scripts/html2canvas/dist/html2canvas.js"></script>
     <script type="module" src="./assets/scripts/jspdf/dist/jspdf.umd.min.js"></script>
+    <script src="./assets/scripts/num2text.js"></script>
     <script src="./assets/scripts/main.js"></script>
     <link rel="stylesheet" href="https://sergio666xd.github.io/npm/bootstrap-5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -16,11 +17,15 @@
 </head>
 
 <body>
-    <h1>Generador CDP v<span id="version"></span></h1>
+    <div id="title">
+        <h1>Generador CDP v<span id="version"></span></h1>
+    </div>
     <form id="bottomB" onsubmit="generar(); return false">
         <div class="campos">
             <label for="date">Fecha:</label>
-            <input type="date" id="date" required>
+            <div id="divdate" style="display: flex; align-items: center; border: 1px solid; margin: 0 auto; width: 80%;">
+                <i style="margin: 0 auto 0.27rem auto; width: 15%; cursor: pointer; display: flex; align-items: center; justify-content: center;" class="bi bi-calendar"><h5 style="position: absolute;">hoy</h5></i><input style="width: 85%; margin: 0 !important; border: none !important;" type="date" id="date" required>
+            </div>
             <label for="brand">Empresa:</label>
             <select id="brand" required>
                 <option value="0">Muñoz & Ruiz Abogados</option>
@@ -38,7 +43,7 @@
                 </div>
                 <div class="num">
                     <label for="clientNUM">*Celular:</label>
-                    <input type="number" id="clientNUM" placeholder="ej: 3007371472" required>
+                    <input type="number" id="clientNUM" min="3000000000" max="3509999999" placeholder="ej: 3007371472" required>
                 </div>
             </div>
             <label for="concept">*Concepto:</label>
@@ -48,13 +53,13 @@
             <input type="text" id="priceL" readonly>
         </div>
         <div id="enviar">
-            <label for="autosave">Auto guardar documento: </label> <input type="checkbox" id="autosave">
+            <label for="autosave">Auto guardar documento: </label> <input type="checkbox" id="autosave" checked="true">
             <button class="btn btn-primary" id="addButton" type="submit">Generar</button>
         </div>
     </form>
     <hr>
-    <form name="foo" method="post" class="input-form" enctype="multipart/form-data">
-        <div>
+    <form id="previewForm" name="foo" method="post" class="input-form" enctype="multipart/form-data">
+        <div id="blank">
             <strong>Comprobante en blanco</strong>
             <br>
             <label for="brand2">Crear comprobante para:</label>
@@ -67,11 +72,14 @@
         </div>
         <hr>
         <strong>Vista previa</strong>
+        <div id="infodiv" class="alert alert-info"><span id="info"></span><i class="bi bi-x"></i></div>
         <div id="previewHtmlContent"></div>
         <div class="row">
             <div class="col-md-12 left">
                 <br>
                 <input type="button" value="Crear PDF" class="btn btn-info hidden" id="convertHtmlToPDF">
+                <input type="button" value="Descargar imágen" class="btn btn-info hidden" id="convertHtmlToPNG">
+                <a class="hidden" id="downloadpng"></a>
             </div>
         </div>
     </form>
