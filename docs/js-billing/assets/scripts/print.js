@@ -35,6 +35,8 @@ var emp = new empresa("Comercializadora MR", 0, NaN, "6043379401", 3008212386, "
 empresas.push(emp);
 var emp = new empresa("Alejandra Muñoz Marín", 2, 40328563, "6043379401", 3508809878, "alejandramunozabg@outlook.com", "am");
 empresas.push(emp);
+var emp = new empresa("Alejandra Muñoz Marín", 2, 40328563, "-------------", 3008212386, "------------------------", "");
+empresas.push(emp);
 
 $(document).ready(() => {
     $('body').css('transform', 'scale(1)')
@@ -70,9 +72,9 @@ $(document).ready(() => {
 })
 
 function printDoc(optDoc) {
-    $('#content').css('transform', 'scale(3)')
+    $('#content').css('transform', 'scale(2)')
     $('#loading').attr('class', '--active')
-    html2canvas(document.querySelector("#content"), { scale: 1.268 }).then(function (canvas) {
+    html2canvas(document.querySelector("#content"), { scale: 1 }).then(function (canvas) {
         var img = canvas.toDataURL("image/png");
         const { jsPDF } = window.jspdf;
         var doc = new jsPDF('l', 'mm', [220, 140], true);
