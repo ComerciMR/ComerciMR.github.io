@@ -69,6 +69,8 @@ $(document).ready(() => {
     empresas.push(emp);
     var emp = new empresa("Alejandra Muñoz Marín", 2, 40328563, "6043379401", 3508809878, "alejandramunozabg@outlook.com", "am");
     empresas.push(emp);
+    var emp = new empresa("Alejandra Muñoz Marín", 2, 40328563, "-------------", 3008212386, "------------------------", "");
+    empresas.push(emp);
     function previewHTMLFile() {
         date = document.getElementById("date").value;
         brand = document.getElementById("brand").value;
@@ -157,9 +159,9 @@ $(document).ready(() => {
         dwnlPNG();
     });
     function converHTMLToPDF() {
-        $('#content').css('transform', 'scale(3)')
+        $('#content').css('transform', 'scale(2)')
         $('#loading').attr('class', '--active')
-        html2canvas(document.querySelector("#content"),{ scale: 1.268 }).then(function(canvas){
+        html2canvas(document.querySelector("#content"),{ scale: 1 }).then(function(canvas){
             var img=canvas.toDataURL("image/png",1.0);
             const { jsPDF } = window.jspdf; 
             var doc = new jsPDF('l', 'mm', [220, 140],true);
@@ -171,9 +173,9 @@ $(document).ready(() => {
         });
     }
     function converHTMLToPNG() {
-        $('#content').css('transform', 'scale(3)')
+        $('#content').css('transform', 'scale(2)')
         $('#loading').attr('class', '--active')
-        html2canvas(document.querySelector("#content"),{ scale: 1.268 }).then(function(canvas){
+        html2canvas(document.querySelector("#content"),{ scale: 1 }).then(function(canvas){
             if (classI == 'alert-danger') {
                 $('#error').toggleClass('hiddenalert', true);
                 setTimeout(() => {
